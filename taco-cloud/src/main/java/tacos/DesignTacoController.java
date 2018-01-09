@@ -51,7 +51,7 @@ public class DesignTacoController {
 	public String showDesignForm(Model model) {
 		List<Ingredient> ingredients = new ArrayList<>();
 		ingredientRepo.findAll().forEach(i -> ingredients.add(i));
-		
+		log.info("Ingredient size: " + ingredients.size());
 		Type[] types = Ingredient.Type.values();
 		for(Type type : types) {
 			model.addAttribute(type.toString().toLowerCase(), filterByType(ingredients, type));
@@ -65,6 +65,7 @@ public class DesignTacoController {
 		if(errors.hasErrors()) {
 			return "design";
 		}
+		log.info(taco.toString());
 		Taco savedTaco = tacoRepo.save(taco);
 		order.addTaco(savedTaco);
 		return "redirect:/orders/current";
