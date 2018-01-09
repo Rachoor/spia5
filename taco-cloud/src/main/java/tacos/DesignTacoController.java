@@ -65,13 +65,11 @@ public class DesignTacoController {
 		if(errors.hasErrors()) {
 			return "design";
 		}
-		log.info(taco.toString());
 		Taco savedTaco = tacoRepo.save(taco);
 		order.addTaco(savedTaco);
 		return "redirect:/orders/current";
 	}
 
-	
 	  private List<Ingredient> filterByType(
 		      List<Ingredient> ingredients, Type type) {
 		    return ingredients

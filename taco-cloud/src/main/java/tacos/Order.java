@@ -23,7 +23,9 @@ import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Data
 @Entity(name="Order")
 @Table(name="Taco_Order")
@@ -33,7 +35,7 @@ public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	private Date placedAt;
@@ -44,10 +46,15 @@ public class Order implements Serializable {
 	
 	@ManyToMany(targetEntity=Taco.class)
 	@JoinTable(name="Taco_Order_Tacos",
-		joinColumns = @JoinColumn(name="orderId", referencedColumnName="id"),
-		inverseJoinColumns = @JoinColumn(name="tacoId", referencedColumnName="id")
+		joinColumns = @JoinColumn(name="order_id", referencedColumnName="id"),
+		inverseJoinColumns = @JoinColumn(name="taco_id", referencedColumnName="id")
 	)
+	
 	private List<Taco> tacos;
+	
+	public Order( ) {
+		this.tacos = new ArrayList<>();
+	}
 	
 	@NotBlank(message="Name is required")
 	private String name;
@@ -67,7 +74,7 @@ public class Order implements Serializable {
 	private String ccCVV;
 	
 	public void addTaco(Taco taco) {
-		this.tacos.add(taco);
+		tacos.add(taco);
 	}
 	
 	public List<Taco> getTacos() {
