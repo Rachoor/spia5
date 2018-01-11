@@ -1,4 +1,5 @@
 package tacos;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import lombok.Data;
 
 @Data
 @Entity(name="Taco")
-public class Taco {
+public class Taco implements Serializable {
 	@SuppressWarnings("unused")
 	private static final long serialVersionUID = 1L;
 	
