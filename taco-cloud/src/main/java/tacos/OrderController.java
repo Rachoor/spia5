@@ -2,8 +2,8 @@ package tacos;
 
 import javax.validation.Valid;
 
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,15 +26,23 @@ public class OrderController {
 	}
 
 	@GetMapping("/current")
-	public String orderForm() {
+	public String orderForm(Order order, @AuthenticationPrincipal User user) {
+		order.setStreet(user.getStreet());
+		order.setCity(user.getCity());
+		order.setState(user.getState());
+		order.setZip(user.getZip());
 		return "orderForm";
 	}
 	
 	@PostMapping
-	public String processOrder(@Valid Order order, Errors errors, SessionStatus sessionStatus) {
+	public String processOrder(@Valid Order order,
+			Errors errors, 
+			SessionStatus sessionStatus, 
+			@AuthenticationPrincipal User user) {
 		if(errors.hasErrors()) {
 			return "orderForm";
-		}		
+		}
+		order.setUser(user);
 		orderRepo.save(order);
 		log.info("Order submitted: " + order);
 		sessionStatus.setComplete();

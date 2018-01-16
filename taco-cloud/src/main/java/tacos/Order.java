@@ -5,15 +5,15 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
@@ -44,6 +44,10 @@ public class Order implements Serializable {
 		this.placedAt = new Date();
 	}
 	
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="user_id")
+	private User user;
+
 	@ManyToMany(targetEntity=Taco.class)
 	@JoinTable(name="Taco_Order_Tacos",
 		joinColumns = @JoinColumn(name="order_id", referencedColumnName="id"),
@@ -76,10 +80,9 @@ public class Order implements Serializable {
 	public void addTaco(Taco taco) {
 		tacos.add(taco);
 	}
-	
+
 	public List<Taco> getTacos() {
 		return tacos;		
 	}
-	
 
 }
