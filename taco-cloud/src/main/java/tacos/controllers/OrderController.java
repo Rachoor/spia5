@@ -1,4 +1,4 @@
-package tacos;
+package tacos.controllers;
 
 import javax.validation.Valid;
 
@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
 import lombok.extern.slf4j.Slf4j;
+import tacos.models.Order;
+import tacos.models.User;
+import tacos.repos.OrderRepository;
 
 @Slf4j
 @Controller
