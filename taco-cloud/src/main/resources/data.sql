@@ -1,3 +1,5 @@
+-- noinspection SqlDialectInspectionForFile
+
 insert into Ingredient (id, name, type)
 	values ('FLTO', 'Flour Tortilla', 'WRAP'); 
 	

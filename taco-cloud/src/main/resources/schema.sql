@@ -1,3 +1,5 @@
+-- noinspection SqlDialectInspectionForFile
+
 create table if not exists Ingredient (
 	id varchar(4) not null,
 	name varchar(25) not null,
@@ -15,6 +17,7 @@ create table if not exists Taco_Ingredient (
 	ingredient_id varchar(4) not null
 );
 
+-- noinspection SqlDialectInspection
 alter table Taco_Ingredient
 	add foreign key (taco_id) references Taco(id);
 alter table Taco_Ingredient
