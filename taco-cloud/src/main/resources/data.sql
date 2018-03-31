@@ -1,3 +1,5 @@
+-- noinspection SqlNoDataSourceInspectionForFile
+
 -- noinspection SqlDialectInspectionForFile
 
 insert into Ingredient (id, name, type)

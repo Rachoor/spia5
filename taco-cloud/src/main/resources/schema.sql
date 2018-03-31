@@ -1,3 +1,5 @@
+-- noinspection SqlNoDataSourceInspectionForFile
+
 -- noinspection SqlDialectInspectionForFile
 
 create table if not exists Ingredient (
